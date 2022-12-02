@@ -4,12 +4,16 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class PO1_SpartanGetRequests {
+public class PO2_NegatuveSpartanTests {
 
-    String url = "http://34.203.212.11:8000";
+    @BeforeAll
+    public static void init(){
+        RestAssured.baseURI = "http://34.203.212.11:8000";
+    }
 
     /*
      * Given accept content type is application/json
@@ -22,10 +26,10 @@ public class PO1_SpartanGetRequests {
     @Test
     public void getAllSpartans(){
         Response response = RestAssured
-                                    .given()
-                                    .accept(ContentType.JSON)
-                                    .when()
-                                    .get(url + "/api/spartans");
+                .given()
+                .accept(ContentType.JSON)
+                .when()
+                .get( "/api/spartans");
         // print response
         /*response.prettyPrint();*/
 
@@ -59,7 +63,7 @@ public class PO1_SpartanGetRequests {
         Response response = RestAssured
                 .given()
                 .accept(ContentType.JSON)
-                .when().get(url + "/api/spartans/5");
+                .when().get("/api/spartans/5");
 
         // Verify status code
         int actualStatusCode = response.statusCode();
@@ -94,7 +98,7 @@ public class PO1_SpartanGetRequests {
         Response response = RestAssured
 //                .given()
 //                .accept(ContentType.JSON)
-                .when().get(url + "/api/hello");
+                .when().get( "/api/hello");
 
         Assertions.assertEquals(200,response.getStatusCode());
         Assertions.assertEquals("text/plain;charset=UTF-8",response.header("Content-Type"));
@@ -103,5 +107,23 @@ public class PO1_SpartanGetRequests {
         Assertions.assertEquals("17",response.header("Content-Length"));
         Assertions.assertTrue(response.body().asString().contains("Hello from Sparta"));
 
+    }
+
+    /*
+    Given Accept type application/xml
+    When user GET request to /api/spartans/10 end point
+    Then status code must be 406
+    And Response Content type must be application/xml:charset-UTF-8;
+     */
+
+    @Test
+    public void test2(){
+        Response response = RestAssured
+                .given()
+                .accept(ContentType.XML)
+                .when().get( "/api/spartans/10");
+
+        Assertions.assertEquals(406,response.getStatusCode());
+        Assertions.assertEquals("application/xml;charset=UTF-8",response.contentType());
     }
 }
