@@ -40,4 +40,6 @@ public class PO1_HrWithJsonPath extends HrTestBase {
         System.out.println("jsonPath.getString(\"items.max{itt.salary}\") = " + jsonPath.getString("items.max{it.salary}"));
         System.out.println("jsonPath.getString(\"items.min{itt.salary}\") = " + jsonPath.getString("items.min{it.salary}"));
     }
+
+
 }
