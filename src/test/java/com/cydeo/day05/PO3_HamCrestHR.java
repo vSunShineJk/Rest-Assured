@@ -2,6 +2,7 @@ package com.cydeo.day05;
 
 import com.cydeo.utilities.HrTestBase;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -39,5 +40,25 @@ public class PO3_HamCrestHR extends HrTestBase {
                 .body("items.salary",everyItem(greaterThan(3000)))
                 .body("items.first_name",equalTo(names));
                 //.body("items.email",contains("DAUSTIN", "ANUHOLD", "BERNST", "VPATABAL","DLORENTZ"));
+    }
+
+    @Test
+    public void test2(){
+        JsonPath jsonPath = given().accept(ContentType.JSON)
+                .when().get("/regions").prettyPeek()
+                .then()
+                .statusCode(200)
+                .header("Date", notNullValue())
+                .body("items[0].region_name", is("Europe"))
+                .body("items[0].region_id", is(1))
+                .body("items", hasSize(4))
+                .body("items.region_name", everyItem(notNullValue()))
+                //.body("items.region_name", containsInRelativeOrder("Europe","Americas","Asia","Middle Eas and Africa"))
+                .body("items.region_id", containsInRelativeOrder(1, 2, 3, 4))
+                .extract().jsonPath();
+
+        // print all regions name
+        List<String> allRegionsName = jsonPath.getList("items.region_name");
+        System.out.println("allRegionsName = " + allRegionsName);
     }
 }
