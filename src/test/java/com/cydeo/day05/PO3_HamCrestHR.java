@@ -37,8 +37,7 @@ public class PO3_HamCrestHR extends HrTestBase {
                 .body("items.manager_id",everyItem(notNullValue()))
                 .body("items.job_id",everyItem(equalTo("IT_PROG")))
                 .body("items.salary",everyItem(greaterThan(3000)))
-                .body("items.first_name",equalTo(names))
-                .body("items.email",contains("DAUSTIN", "ANUHOLD", "BERNST", "VPATABAL","DLORENTZ"));
-
+                .body("items.first_name",equalTo(names));
+                //.body("items.email",contains("DAUSTIN", "ANUHOLD", "BERNST", "VPATABAL","DLORENTZ"));
     }
 }
