@@ -1,4 +1,5 @@
 package com.cydeo.day07;
+import com.cydeo.pojo.Spartan;
 import com.cydeo.utilities.SpartanTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -78,5 +79,70 @@ public class P02_SpartanPost extends SpartanTestBase {
 
         String expectedMsg = "A Spartan is Born!";
         assertEquals(expectedMsg,jsonPath.getString("success"));
+    }
+
+    @Test
+    public void test3(){
+
+        Spartan requestBody = new Spartan();
+        requestBody.setName("Dua");
+        requestBody.setGender("Female");
+        requestBody.setId(97);
+        requestBody.setPhone(12345678910L);
+
+        System.out.println("requestBody = " + requestBody);
+
+        JsonPath jsonPath =
+                given()
+                        .accept(ContentType.JSON).log().body()
+                        .contentType(ContentType.JSON)
+                        .body(requestBody)
+                        .when()
+                        .post("/api/spartans").prettyPeek()
+                        .then()
+                        .statusCode(201)
+                        .contentType(ContentType.JSON)
+                        .extract().jsonPath();
+
+        String expectedMsg = "A Spartan is Born!";
+        assertEquals(expectedMsg,jsonPath.getString("success"));
+    }
+
+    @Test
+    public void test4(){
+
+        Spartan requestBody = new Spartan();
+        requestBody.setName("Dua");
+        requestBody.setGender("Female");
+        requestBody.setId(97);
+        requestBody.setPhone(12345678910L);
+
+        System.out.println("requestBody = " + requestBody);
+
+        JsonPath jsonPath =
+                given()
+                        .accept(ContentType.JSON).log().body()
+                        .contentType(ContentType.JSON)
+                        .body(requestBody)
+                        .when()
+                        .post("/api/spartans").prettyPeek()
+                        .then()
+                        .statusCode(201)
+                        .contentType(ContentType.JSON)
+                        .extract().jsonPath();
+
+        String expectedMsg = "A Spartan is Born!";
+        assertEquals(expectedMsg,jsonPath.getString("success"));
+
+        int idFromPost = jsonPath.getInt("data.id");
+
+        Spartan spartanGet = given().accept(ContentType.JSON)
+                .pathParam("id",idFromPost)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200)
+                .extract().jsonPath().getObject("",Spartan.class);
+
+        System.out.println("spartanGet = " + spartanGet);
+        System.out.println("spartanGet.getName() = " + spartanGet.getName());
     }
 }
