@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class SpartanAuthTest extends SpartanAuthTestBase {
+public class P01_SpartanAuthTest extends SpartanAuthTestBase {
     @DisplayName("GET /spartans as GUEST User --> EXPECT --> 401")
     @Test
     public void test1(){

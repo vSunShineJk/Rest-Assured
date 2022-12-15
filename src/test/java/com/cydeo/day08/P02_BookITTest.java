@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.*;
 
-public class BookITTest extends BookITTestBase {
+public class P02_BookITTest extends BookITTestBase {
 
 //    String email = "lfinnisz@yolasite.com";
 //    String password = "lissiefinnis";
@@ -32,6 +32,19 @@ public class BookITTest extends BookITTestBase {
 
         given().accept(ContentType.JSON)
                 .header("Authorization",accessToken)
+                .when().get("api/users/me").prettyPeek()
+                .then().statusCode(200);
+    }
+
+    @DisplayName("GET /api/users/me")
+    @Test
+    public void test3(){
+
+        System.out.println(accessToken);
+
+        given().accept(ContentType.JSON)
+                .auth().oauth2(accessToken)
+                //.header("Authorization",accessToken)
                 .when().get("api/users/me").prettyPeek()
                 .then().statusCode(200);
     }
