@@ -45,5 +45,13 @@ public class P01_SpartanXMLTest extends SpartanTestBase {
         System.out.println("xmlPath.getString(\"List.item.name\") = " + xmlPath.get("List.item.name"));
         System.out.println("xmlPath.getList(\"List.item\").size() = " + xmlPath.getList("List.item").size());
 
+        System.out.println();
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println();
+
+        for (int i = 0; i < xmlPath.getList("List.item").size(); i++){
+            System.out.println("xmlPath.getString(\"List.item[\""+i+"\"].name\") = " + xmlPath.getString("List.item[" + i + "].name"));
+        }
+
     }
 }
