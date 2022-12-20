@@ -1,4 +1,4 @@
-package com.cydeo.day10;
+package com.cydeo.day9;
 
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
