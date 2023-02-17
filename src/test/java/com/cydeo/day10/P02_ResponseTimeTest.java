@@ -1,4 +1,4 @@
-package com.cydeo.day9;
+package com.cydeo.day10;
 
 import com.cydeo.utilities.SpartanAuthTestBase;
 import io.restassured.http.ContentType;

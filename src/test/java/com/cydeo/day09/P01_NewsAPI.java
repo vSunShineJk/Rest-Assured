@@ -1,11 +1,11 @@
-package com.cydeo.day08;
+package com.cydeo.day09;
 
 import com.cydeo.utilities.NewsAPITestBase;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.*;
 
-public class P03_NewsAPI extends NewsAPITestBase {
+public class P01_NewsAPI extends NewsAPITestBase {
     @Test
     public void test1() {
         given().queryParam("q", "bitcoin")
